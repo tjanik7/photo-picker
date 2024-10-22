@@ -100,13 +100,13 @@ struct ProfileImage: Transferable {
 When handling many items at the same time, or large assets, use [`FileTransferRepresentation`][13] to load assets as files and reduce memory usage. When loading assets as files, copy them to an app directory and remove them when they’re no longer needed.
 
 [1]: https://developer.apple.com/documentation/coretransferable/transferable
-[2]: https://developer.apple.com/documentation/photokit/photospicker
-[3]: https://developer.apple.com/documentation/photokit/phpickerfilter
-[4]: https://developer.apple.com/documentation/photokit/phpickerfilter/3952799-bursts
-[5]: https://developer.apple.com/documentation/photokit/phpickerfilter/3952800-cinematicvideos
-[6]: https://developer.apple.com/documentation/photokit/phpickerfilter/3952801-deptheffectphotos
+[2]: https://developer.apple.com/documentation/photosui/photospicker
+[3]: https://developer.apple.com/documentation/photosui/phpickerfilter-swift.struct
+[4]: https://developer.apple.com/documentation/photosui/phpickerfilter-swift.struct/bursts
+[5]: https://developer.apple.com/documentation/photosui/phpickerfilter-swift.struct/cinematicVideos
+[6]: https://developer.apple.com/documentation/photosui/phpickerfilter-swift.struct/depthEffectPhotos
 [7]: https://developer.apple.com/documentation/swiftui/observedobject
-[8]: https://developer.apple.com/documentation/photokit/photospickeritem
+[8]: https://developer.apple.com/documentation/photosui/photospickeritem
 [9]: https://developer.apple.com/documentation/coretransferable/transferable
 [10]: https://developer.apple.com/documentation/swiftui/image
 [11]: https://developer.apple.com/documentation/uikit/uiimage
