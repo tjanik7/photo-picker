@@ -10,46 +10,53 @@ import PhotosUI
 
 struct Profile: View {
     var body: some View {
-        #if os(macOS)
-        ProfileForm()
-            .labelsHidden()
-            .frame(width: 400)
-            .padding()
-        #else
         NavigationView {
             ProfileForm()
         }
-        #endif
     }
 }
 
 struct ProfileForm: View {
-    @StateObject var viewModel = ProfileModel()
+    @StateObject var profileModel = ProfileModel() // has fields imageState (type is ProfileModel.ImageState) & imageSelection (type is PhotosPickerItem?)
+    
+    @StateObject var multiSelectViewModel = ProfileModelArray()
     
     var body: some View {
         Form {
             Section {
+                JokeView()
+            }
+//            Section { // The original picker in single mode
+//                HStack {
+//                    Spacer()
+//                    EditableCircularProfileImage(profileModel: profileModel)
+//                    Spacer()
+//                }
+//            }.listRowBackground(Color.clear)
+            Section { // My new picker in select multiple mode
                 HStack {
                     Spacer()
-                    EditableCircularProfileImage(viewModel: viewModel)
+                    EditableCircularProfileImageArray(viewModel: multiSelectViewModel)
                     Spacer()
                 }
             }
+            Section {
+                ForEach(multiSelectViewModel.loadedImages) { img in
+                    SquareImage(imgWrapper: img)
+                }
+            }
             .listRowBackground(Color.clear)
-            #if !os(macOS)
-            .padding([.top], 10)
-            #endif
             Section {
                 TextField("First Name",
-						  text: $viewModel.firstName,
+						  text: $profileModel.firstName,
 						  prompt: Text("First Name"))
                 TextField("Last Name",
-						  text: $viewModel.lastName,
+						  text: $profileModel.lastName,
 						  prompt: Text("Last Name"))
             }
             Section {
                 TextField("About Me",
-						  text: $viewModel.aboutMe,
+						  text: $profileModel.aboutMe,
 						  prompt: Text("About Me"))
             }
         }
