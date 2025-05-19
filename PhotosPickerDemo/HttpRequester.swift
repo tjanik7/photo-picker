@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct JokeView: View {
-    @State var joke: Joke?
+    @State var joke: ResponseObj?
     
     var body: some View {
         VStack {
@@ -19,80 +19,116 @@ struct JokeView: View {
                 .fontWeight(.black)
                 .foregroundColor(Color.gray)
                 .padding(.bottom, 8)
-            Text(joke?.joke ?? "Loading joke...")
+            Text(joke?.testKey ?? "Loading joke...")
                 .padding(.horizontal, 8)
         }.onAppear() {
-//            JokesApi().getRandomJoke { (joke) in
-//                self.joke = joke
-            JokesApi().getJoke { (jokeString) in
-                print(jokeString)
-            }
+//            JokesApi().getJoke { (resp) in
+//                print("setting rn")
+//                self.joke = resp
+//            }
+            JokesApi().postRequest()
         }
     }
 }
 
-struct Joke: Codable, Identifiable {
-    let id: Int
-    let error: Bool
-    let category: String
-    let type: String
-    let joke: String
+struct ResponseObj: Codable {
+    var testKey: String
 }
 
 class JokesApi {
-    let jokeUrl = URL(string: "https://v2.jokeapi.dev/joke/Programming")!
+    let serverUrl = URL(string: "http://192.168.1.130:8000/media/hi")!
+    let postUrl = URL(string: "http://172.20.10.3:8000/media/test-post")!
     
-    func getJoke(completion:@escaping (String) -> ()) {
-        URLSession.shared.dataTask(with:jokeUrl) { (data, response, error) in
+    func uploadImage(paramName: String, fileName: String, image: UIImage) {
+        // generate boundary string using a unique per-app string
+        let boundary = UUID().uuidString
+
+        let session = URLSession.shared
+
+        // Set the URLRequest to POST and to the specified URL
+        var urlRequest = URLRequest(url: serverUrl)
+        urlRequest.httpMethod = "POST"
+
+        // Set Content-Type Header to multipart/form-data, this is equivalent to submitting form data with file upload in a web browser
+        // And the boundary is also set here
+        urlRequest.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+
+        var data = Data()
+
+        // Add the image data to the raw http request data
+        data.append("\r\n--\(boundary)\r\n".data(using: .utf8)!)
+        data.append("Content-Disposition: form-data; name=\"\(paramName)\"; filename=\"\(fileName)\"\r\n".data(using: .utf8)!)
+        data.append("Content-Type: image/png\r\n\r\n".data(using: .utf8)!)
+        data.append(image.pngData()!)
+
+        data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
+
+        // Send a POST request to the URL, with the data we created earlier
+        session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
+            if error == nil {
+                let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+                if let json = jsonData as? [String: Any] {
+                    print(json)
+                }
+            }
+        }).resume()
+    }
+    
+    func postRequest() {
+        let body: [String: Any] = ["testKey": "some strange value"]
+        let jsonData = try? JSONSerialization.data(withJSONObject: body)
+        
+        print("BUILDING REQUEST")
+        
+        var req = URLRequest(url: postUrl)
+        req.httpMethod = "POST"
+        req.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with:req) { (data, response, error) in
               if error != nil {
                   print("ERROR")
                 print(error!)
-                completion("")
               } else {
                   print("no error to be found")
                 if let returnData = String(data: data!, encoding: .utf8) {
-                  completion(returnData)
+                    print(type(of: data!))
+                    print("got some returnData")
+                    print("it is " + returnData)
+                    print(type(of: returnData))
+                    
+                    let joke = try! JSONDecoder().decode(ResponseObj.self, from: data!)
+                    print(joke)
+                    print("got jokes")
                 } else {
-                  completion("")
+                  print("unable to parse response")
                 }
               }
             }.resume()
     }
     
-    func getRandomJoke(completion:@escaping (Joke) -> ()) {
-        print("getting random joke")
-        URLSession.shared.dataTask(with: jokeUrl) { data,_,_  in
-            if let data {
-                print("data is NOT null")
-                print(type(of: data))
-            } else {
-                print("data is null")
-            }
-            
-            let joke = try! JSONDecoder().decode(Joke.self, from: data!)
-            
-            DispatchQueue.main.async {
-                completion(joke)
-            }
-        }
-        .resume()
+    func getJoke(completion:@escaping (ResponseObj) -> ()) {
+        URLSession.shared.dataTask(with:serverUrl) { (data, response, error) in
+              if error != nil {
+                  print("ERROR")
+                print(error!)
+              } else {
+                  print("no error to be found")
+                if let returnData = String(data: data!, encoding: .utf8) {
+                    print(type(of: data!))
+                    print("got some returnData")
+                    print("it is " + returnData)
+                    print(type(of: returnData))
+                    
+                    let joke = try! JSONDecoder().decode(ResponseObj.self, from: data!)
+                    print(joke)
+                    print("got jokes")
+                    completion(joke)
+                } else {
+                  print("unable to parse response")
+                }
+              }
+            }.resume()
     }
 }
-
-//class HttpRequester {
-//    func makeRequest() {
-//        let url = URL(string: "http://www.google.com")!
-//        var request = URLRequest(url: url)
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpMethod = "GET"
-//        
-//        URLSession.shared.dataTask(with: url) { data,_,_  in
-//                    let joke = try! JSONDecoder().decode(Joke.self, from: data!)
-//                    
-//                    DispatchQueue.main.async {
-//                        completion(joke)
-//                    }
-//                }
-//                .resume()
-//    }
-//}
