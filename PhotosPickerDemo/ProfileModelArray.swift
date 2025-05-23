@@ -43,6 +43,7 @@ class ProfileModelArray: ObservableObject {
                 let image = Image(nsImage: nsImage)
                 return ProfileImageArray(image: image)
             #elseif canImport(UIKit)
+                print("MADE IT HERE INDEED")
                 guard let uiImage = UIImage(data: data) else {
                     throw TransferError.importFailed
                 }
@@ -55,7 +56,22 @@ class ProfileModelArray: ObservableObject {
         }
     }
     // Images that were successfully retrieved
-    @Published private(set) var loadedImages: [ImageWrapper] = []
+    @Published private(set) var loadedImages: [ImageWrapper] = [] {
+        didSet {
+            if loadedImages.count > 0 { // TODO: might not need this to be UIImage - could look into changing function
+                let imageToSend = loadedImages[0]
+                
+                print("REQUEST WOULD BE SENT NOW")
+                
+                print(type(of: imageToSend.img!))
+                
+                
+//                let uiImage = UIImage(imageToSend.img)
+                
+//                JokesApi().uploadImage(paramName: "paramName", fileName: "testFile", image: imageToSend.img!)
+            }
+        }
+    }
     
     //@Published private(set) var imageState: ImageState = .empty // Init imageState to empty
     

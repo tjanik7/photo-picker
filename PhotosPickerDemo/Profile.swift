@@ -24,15 +24,8 @@ struct ProfileForm: View {
     var body: some View {
         Form {
             Section {
-                JokeView()
+//                JokeView()
             }
-//            Section { // The original picker in single mode
-//                HStack {
-//                    Spacer()
-//                    EditableCircularProfileImage(profileModel: profileModel)
-//                    Spacer()
-//                }
-//            }.listRowBackground(Color.clear)
             Section { // My new picker in select multiple mode
                 HStack {
                     Spacer()
