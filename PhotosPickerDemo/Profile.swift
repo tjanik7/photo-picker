@@ -17,14 +17,13 @@ struct Profile: View {
 }
 
 struct ProfileForm: View {
-    @StateObject var profileModel = ProfileModel() // has fields imageState (type is ProfileModel.ImageState) & imageSelection (type is PhotosPickerItem?)
-    
+
     @StateObject var multiSelectViewModel = ProfileModelArray()
     
     var body: some View {
         Form {
             Section {
-//                JokeView()
+                PhotoApiView()
             }
             Section { // My new picker in select multiple mode
                 HStack {
@@ -41,15 +40,15 @@ struct ProfileForm: View {
             .listRowBackground(Color.clear)
             Section {
                 TextField("First Name",
-						  text: $profileModel.firstName,
+						  text: $multiSelectViewModel.firstName,
 						  prompt: Text("First Name"))
                 TextField("Last Name",
-						  text: $profileModel.lastName,
+						  text: $multiSelectViewModel.lastName,
 						  prompt: Text("Last Name"))
             }
             Section {
                 TextField("About Me",
-						  text: $profileModel.aboutMe,
+						  text: $multiSelectViewModel.aboutMe,
 						  prompt: Text("About Me"))
             }
         }

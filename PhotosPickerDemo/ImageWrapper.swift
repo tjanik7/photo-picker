@@ -7,11 +7,12 @@
 //
 
 import SwiftUICore
+import UIKit
 
 class ImageWrapper: Identifiable {
-    var img: Image?
+    var img: UIImage?
     
-    init(img: Image? = nil) {
+    init(img: UIImage? = nil) {
         self.img = img
     }
 }

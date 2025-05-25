@@ -11,11 +11,11 @@ import PhotosUI
 struct ProfileImageArray: View {
     let imageState: ProfileModelArray.ImageState
     
-    var body: some View {
-        switch imageState {
+    var body: some View { // Keep in mind that since this is a view we don't need a return statement, simply instantiating the Image() is enough for it to display
+        switch imageState { // This is not where the enum is defined; it is where it is evaluated for the cirular profile pic (only considers first img in array)
         case .success(let image):
-            image.resizable()
-            let _ = print("========== ProfileImage state is success ===========")
+            let img = Image(uiImage: image)
+            img.resizable()
         case .loading:
             ProgressView()
         case .empty:
@@ -56,7 +56,8 @@ struct SquareImage: View {
     let imgWrapper: ImageWrapper
     
     var body: some View {
-        imgWrapper.img!.resizable()
+        let image = Image(uiImage: imgWrapper.img!)
+        image.resizable()
             .frame(width: 100, height: 100)
     }
 }

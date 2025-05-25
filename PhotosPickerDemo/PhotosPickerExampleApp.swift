@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct PhotosPickerDemoApp: App {
     var body: some Scene {
-        let _ = print("app has started")
+        let _ = print("=========== App has started ===========\n\n")
         WindowGroup {
             Profile()
         }
