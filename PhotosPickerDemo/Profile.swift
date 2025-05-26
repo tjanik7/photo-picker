@@ -10,46 +10,45 @@ import PhotosUI
 
 struct Profile: View {
     var body: some View {
-        #if os(macOS)
-        ProfileForm()
-            .labelsHidden()
-            .frame(width: 400)
-            .padding()
-        #else
         NavigationView {
             ProfileForm()
         }
-        #endif
     }
 }
 
 struct ProfileForm: View {
-    @StateObject var viewModel = ProfileModel()
+
+    @StateObject var multiSelectViewModel = ProfileModelArray()
     
     var body: some View {
         Form {
             Section {
+                PhotoApiView()
+            }
+            Section { // My new picker in select multiple mode
                 HStack {
                     Spacer()
-                    EditableCircularProfileImage(viewModel: viewModel)
+                    EditableCircularProfileImageArray(viewModel: multiSelectViewModel)
                     Spacer()
                 }
             }
+            Section {
+                ForEach(multiSelectViewModel.loadedImages) { img in
+                    SquareImage(imgWrapper: img)
+                }
+            }
             .listRowBackground(Color.clear)
-            #if !os(macOS)
-            .padding([.top], 10)
-            #endif
             Section {
                 TextField("First Name",
-						  text: $viewModel.firstName,
+						  text: $multiSelectViewModel.firstName,
 						  prompt: Text("First Name"))
                 TextField("Last Name",
-						  text: $viewModel.lastName,
+						  text: $multiSelectViewModel.lastName,
 						  prompt: Text("Last Name"))
             }
             Section {
                 TextField("About Me",
-						  text: $viewModel.aboutMe,
+						  text: $multiSelectViewModel.aboutMe,
 						  prompt: Text("About Me"))
             }
         }
