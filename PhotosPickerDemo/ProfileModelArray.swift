@@ -61,66 +61,43 @@ class ProfileModelArray: ObservableObject {
     @Published private(set) var loadedImages: [ImageWrapper] = [] {
         didSet {
             print("loaded " + String(loadedImages.count) + " images (of " + String(numSelected) + ")")
-            if loadedImages.count == numSelected {
-                print("\nlet us sling it here me boy")
-            }
             
-//            if loadedImages.count > 0 {
-//                
-//                print("Sending request:")
-//                
-//                PhotoServerApi().uploadImages(paramName: "thisIsParamName", fileName: "testFilename", image: imageToSend.img!)
-//                PhotoServerApi().uploadImages(images: loadedImages)
-//            }
+            if loadedImages.count > 0 && loadedImages.count == numSelected {
+                print("Sending request:")
+                PhotoServerApi().uploadImages(images: loadedImages)
+            }
         }
     }
     
     
-    @Published private(set) var imageStateArray: [ImageState] = [] {
-        didSet {
-//            if imageStateArray.count > 0 && (imageStateArray.count == numSelected) {
-//                loadedImages = [] // For now, do a full recompute everytime; will use ID/hash to avoid recomputation in the future
-//                
-//                for imgState in imageStateArray {
-////                    if case .success(let profileImg) = imgState {
-////                        loadedImages.append(ImageWrapper(img: profileImg))
-////                    }
-//                    
-//                    // Use this block to count how many images have finished loading at this point (including both success and failure)
-//                    switch imgState {
-//                    case .success(let loadedImage):
-//                        loadedImages.append(ImageWrapper(img: loadedImage))
-//                    default:
-//                        break
-//                    }
-//                }
-//                print("numCompleted is " + String(numCompleted) + " (of " + String(numSelected) + ")")
-//                
-//                if numCompleted == numSelected {
-////                    PhotoServerApi().uploadImages(images: loadedImages)
-//                    print("WOULD SEND THAT THANG HERE")
-//                }
-//                
-//            }
-        }
-    }
+    @Published private(set) var imageStateArray: [ImageState] = []
     
+    var selectedIds: Set<String> = []
     
     @Published var selectedItems: [PhotosPickerItem] = [] {
         didSet {
+            selectedIds = []  // TODO: see if there is a better implementation
+            
             if selectedItems.count > 0 {
                 let _ = print("User selected " + String(selectedItems.count) + " items; setting numSelected var")
                 numSelected = selectedItems.count
                 
                 imageStateArray = [] // Full reset each time for now
+                loadedImages = []
                 
                 for (ind, selectedImg) in selectedItems.enumerated() {
+                    if let currId = selectedImg.itemIdentifier {
+                        selectedIds.insert(currId)
+                    }
+                    
                     imageStateArray.append(
                         .loading(loadTransferable(from: selectedImg, index: ind))
                     )
                 }
                 
             }
+            print("selected IDs are:")
+            print(selectedIds)
         }
     }
     
@@ -136,7 +113,10 @@ class ProfileModelArray: ObservableObject {
                 switch result { // Note that I don't think this is a value defined anywhere in this code; this is simply the result of the loaded image
                 case .success(let profileImageArray?): // Here is where the selected image is set if state is successful
                     self.imageStateArray[index] = .success(profileImageArray.image)
-                    self.loadedImages.append(ImageWrapper(img: profileImageArray.image))
+                    
+                    let imgWrap = ImageWrapper(img: profileImageArray.image)
+                    
+                    self.loadedImages.append(imgWrap)
                 case .success(nil):
                     self.imageStateArray[index] = .empty
                 case .failure(let error):

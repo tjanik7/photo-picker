@@ -36,8 +36,8 @@ struct ResponseObj: Codable {
 }
 
 class PhotoServerApi {
-    let serverUrl = URL(string: "http://192.168.1.130:8000/media/hi")!
-    let postUrl = URL(string: "http://192.168.1.130:8000/media/test-post")!
+    let serverUrl = URL(string: "http://192.168.1.82:8000/media/hi")!
+//    let postUrl = URL(string: "http://192.168.1.130:8000/media/test-post")!
     
     func uploadImages(images: [ImageWrapper]) {
         
@@ -135,37 +135,37 @@ class PhotoServerApi {
         }).resume()
     }
     
-    func postRequest() {
-        let body: [String: Any] = ["testKey": "some strange value"]
-        let jsonData = try? JSONSerialization.data(withJSONObject: body)
-        
-        print("BUILDING REQUEST")
-        
-        var req = URLRequest(url: postUrl)
-        req.httpMethod = "POST"
-        req.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
-        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        req.httpBody = jsonData
-        
-        URLSession.shared.dataTask(with:req) { (data, response, error) in
-              if error != nil {
-                  print("ERROR")
-                print(error!)
-              } else {
-                  print("no error to be found")
-                if let returnData = String(data: data!, encoding: .utf8) {
-                    print(type(of: data!))
-                    print("got some returnData")
-                    print("it is " + returnData)
-                    print(type(of: returnData))
-                    
-                    let decodedResponse = try! JSONDecoder().decode(ResponseObj.self, from: data!)
-                } else {
-                  print("unable to parse response")
-                }
-              }
-            }.resume()
-    }
+//    func postRequest() {
+//        let body: [String: Any] = ["testKey": "some strange value"]
+//        let jsonData = try? JSONSerialization.data(withJSONObject: body)
+//        
+//        print("BUILDING REQUEST")
+//        
+//        var req = URLRequest(url: postUrl)
+//        req.httpMethod = "POST"
+//        req.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
+//        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        req.httpBody = jsonData
+//        
+//        URLSession.shared.dataTask(with:req) { (data, response, error) in
+//              if error != nil {
+//                  print("ERROR")
+//                print(error!)
+//              } else {
+//                  print("no error to be found")
+//                if let returnData = String(data: data!, encoding: .utf8) {
+//                    print(type(of: data!))
+//                    print("got some returnData")
+//                    print("it is " + returnData)
+//                    print(type(of: returnData))
+//                    
+//                    let decodedResponse = try! JSONDecoder().decode(ResponseObj.self, from: data!)
+//                } else {
+//                  print("unable to parse response")
+//                }
+//              }
+//            }.resume()
+//    }
     
     func getRequest(completion:@escaping (ResponseObj) -> ()) {
         URLSession.shared.dataTask(with:serverUrl) { (data, response, error) in
