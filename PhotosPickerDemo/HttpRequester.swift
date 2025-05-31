@@ -12,7 +12,6 @@ import SwiftUI
 struct PhotoApiView: View {
     
     @State var getRequestResponse: ResponseObj?
-    @State var statusText = "Select photos..."
     
     var body: some View {
         VStack {
@@ -21,8 +20,6 @@ struct PhotoApiView: View {
                 .fontWeight(.black)
                 .foregroundColor(Color.gray)
                 .padding(.bottom, 8)
-            Text(statusText)
-                .padding(.horizontal, 8)
         }
     }
 }
@@ -32,8 +29,11 @@ struct ResponseObj: Codable {
     var testKey: String
 }
 
-class PhotoServerApi {
-    let serverUrl = URL(string: "http://192.168.1.82:8000/media/hi")!
+struct PhotoServerApi {
+//    let serverUrl = URL(string: "http://192.168.1.82:8000/media/hi")!
+    let serverUrl = URL(string: "http://172.20.10.3:8000/media/hi")!  // IP when using hotspot
+        
+    var statusUpdateHandler: (String) -> Void
     
     func uploadImages(images: [ImageWrapper]) {
         
@@ -72,16 +72,20 @@ class PhotoServerApi {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         print("REQUEST SENT HERE -----------")
+        statusUpdateHandler("Sending request")
 
         // Send a POST request to the URL, with the data we created earlier
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
             if error == nil {
                 print("GOT RESPONSE")
+                statusUpdateHandler("Got successful response from server")
+                
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
                     print(json)
                 }
             } else {
+                statusUpdateHandler("Got error response")
                 print("GOT ERROR:")
                 print(error!)
             }

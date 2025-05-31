@@ -1,3 +1,12 @@
+//
+//  SquareImage.swift
+//  PhotosPickerDemo
+//
+//  Created by Ty Janik on 5/31/25.
+//  Copyright © 2025 Apple. All rights reserved.
+//
+
+
 /*
 See the LICENSE.txt file for this sample’s licensing information.
 
@@ -18,8 +27,8 @@ struct SquareImage: View {
     }
 }
 
-struct PickerLaunchButton: View {
-    @ObservedObject var viewModel: ProfileModel
+struct PhotoPickerLaunchButton: View {
+    @Bindable var viewModel: ProfileModel
     
     var body: some View {
         PhotosPicker(selection: $viewModel.selectedItems,

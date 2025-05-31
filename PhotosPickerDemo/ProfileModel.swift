@@ -1,17 +1,11 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-An observable state object that contains profile details.
-*/
-
 import SwiftUI
 import PhotosUI
 import CoreTransferable
 
 @MainActor
-class ProfileModel: ObservableObject {
-    @Binding var statusText: String
+@Observable
+public class ProfileModel {
+    public var statusText: String = "Select some photos"
     
     enum ImageState { // These enum states are referenced with .<state value>
         case empty
@@ -52,23 +46,28 @@ class ProfileModel: ObservableObject {
     }
     
     // Images that were successfully retrieved
-    @Published private(set) var loadedImages: [ImageWrapper] = [] {
+    private(set) var loadedImages: [ImageWrapper] = [] {
         didSet {
             print("loaded " + String(loadedImages.count) + " images (of " + String(numSelected) + ")")
             
             if loadedImages.count > 0 && loadedImages.count == numSelected {
+                
+                var statusUpdateClosure = { newStatus in
+                    self.statusText = newStatus
+                }
+                
                 print("Sending request:")
-                PhotoServerApi().uploadImages(images: loadedImages)
+                PhotoServerApi(statusUpdateHandler: statusUpdateClosure).uploadImages(images: loadedImages)
             }
         }
     }
     
     
-    @Published private(set) var imageStateArray: [ImageState] = []
+    private(set) var imageStateArray: [ImageState] = []
     
     var selectedIds: Set<String> = []
     
-    @Published var selectedItems: [PhotosPickerItem] = [] {
+    var selectedItems: [PhotosPickerItem] = [] {
         didSet {
             selectedIds = []  // TODO: see if there is a better implementation
             

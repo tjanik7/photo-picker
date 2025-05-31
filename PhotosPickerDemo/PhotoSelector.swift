@@ -10,9 +10,8 @@ import PhotosUI
 
 struct PhotoSelector: View { // TODO: refactor code so that names actually make sense - update status of HTTP requests in some sort of text area
     
-    @State var status = "Select some photos" // Need @State to be able to use this as a binding
-    @StateObject var profileModel = ProfileModel()
-    var photoApiView = PhotoApiView()
+    @State var profileModel = ProfileModel()
+    @State var photoApiView = PhotoApiView()
     
     var body: some View {
         Form {
@@ -22,8 +21,8 @@ struct PhotoSelector: View { // TODO: refactor code so that names actually make 
             Section { // My new picker in select multiple mode
                 HStack {
                     Spacer()
-                    Text(status)
-                    PickerLaunchButton(viewModel: profileModel)
+                    Text(profileModel.statusText)
+                    PhotoPickerLaunchButton(viewModel: profileModel)
                     Spacer()
                 }
             }
