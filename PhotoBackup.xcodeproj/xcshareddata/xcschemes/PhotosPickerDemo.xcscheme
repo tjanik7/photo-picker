@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D20E9D79281F43B500957AC3"
-               BuildableName = "PhotosPickerDemo.app"
-               BlueprintName = "PhotosPickerDemo"
+               BuildableName = "PhotoBackupApp.app"
+               BlueprintName = "PhotoBackupApp"
                ReferencedContainer = "container:PhotoBackup.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D20E9D79281F43B500957AC3"
-            BuildableName = "PhotosPickerDemo.app"
-            BlueprintName = "PhotosPickerDemo"
+            BuildableName = "PhotoBackupApp.app"
+            BlueprintName = "PhotoBackupApp"
             ReferencedContainer = "container:PhotoBackup.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,8 +69,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D20E9D79281F43B500957AC3"
-            BuildableName = "PhotosPickerDemo.app"
-            BlueprintName = "PhotosPickerDemo"
+            BuildableName = "PhotoBackupApp.app"
+            BlueprintName = "PhotoBackupApp"
             ReferencedContainer = "container:PhotoBackup.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
