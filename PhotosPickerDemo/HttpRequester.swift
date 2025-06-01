@@ -19,25 +19,20 @@ struct PhotoApiView: View {
                 .fontWeight(.black)
                 .foregroundColor(Color.gray)
                 .padding(.bottom, 8)
-            Text(getRequestResponse?.testKey ?? "Loading the text...")
-                .padding(.horizontal, 8)
-        }.onAppear() {
-//            PhotoServerApi().getRequest { (resp) in
-//                print("setting rn")
-//                self.getRequestResponse = resp
-//            }
-//            PhotoServerApi().postRequest()
         }
     }
 }
+
 
 struct ResponseObj: Codable {
     var testKey: String
 }
 
-class PhotoServerApi {
-    let serverUrl = URL(string: "http://192.168.1.82:8000/media/hi")!
-//    let postUrl = URL(string: "http://192.168.1.130:8000/media/test-post")!
+struct PhotoServerApi {
+//    let serverUrl = URL(string: "http://192.168.1.82:8000/media/hi")!
+    let serverUrl = URL(string: "http://172.20.10.3:8000/media/hi")!  // IP when using hotspot
+        
+    var statusUpdateHandler: (String) -> Void
     
     func uploadImages(images: [ImageWrapper]) {
         
@@ -76,16 +71,20 @@ class PhotoServerApi {
         data.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         
         print("REQUEST SENT HERE -----------")
+        statusUpdateHandler("Sending request")
 
         // Send a POST request to the URL, with the data we created earlier
         session.uploadTask(with: urlRequest, from: data, completionHandler: { responseData, response, error in
             if error == nil {
                 print("GOT RESPONSE")
+                statusUpdateHandler("Got successful response from server")
+                
                 let jsonData = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
                 if let json = jsonData as? [String: Any] {
                     print(json)
                 }
             } else {
+                statusUpdateHandler("Got error response")
                 print("GOT ERROR:")
                 print(error!)
             }
@@ -134,38 +133,6 @@ class PhotoServerApi {
             }
         }).resume()
     }
-    
-//    func postRequest() {
-//        let body: [String: Any] = ["testKey": "some strange value"]
-//        let jsonData = try? JSONSerialization.data(withJSONObject: body)
-//        
-//        print("BUILDING REQUEST")
-//        
-//        var req = URLRequest(url: postUrl)
-//        req.httpMethod = "POST"
-//        req.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
-//        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        req.httpBody = jsonData
-//        
-//        URLSession.shared.dataTask(with:req) { (data, response, error) in
-//              if error != nil {
-//                  print("ERROR")
-//                print(error!)
-//              } else {
-//                  print("no error to be found")
-//                if let returnData = String(data: data!, encoding: .utf8) {
-//                    print(type(of: data!))
-//                    print("got some returnData")
-//                    print("it is " + returnData)
-//                    print(type(of: returnData))
-//                    
-//                    let decodedResponse = try! JSONDecoder().decode(ResponseObj.self, from: data!)
-//                } else {
-//                  print("unable to parse response")
-//                }
-//              }
-//            }.resume()
-//    }
     
     func getRequest(completion:@escaping (ResponseObj) -> ()) {
         URLSession.shared.dataTask(with:serverUrl) { (data, response, error) in

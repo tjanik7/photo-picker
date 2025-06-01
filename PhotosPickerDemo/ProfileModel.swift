@@ -1,24 +1,11 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-An observable state object that contains profile details.
-*/
-
 import SwiftUI
 import PhotosUI
 import CoreTransferable
 
 @MainActor
-class ProfileModelArray: ObservableObject {
-    
-    // MARK: - Profile Details
-    
-    @Published var firstName: String = ""
-    @Published var lastName: String = ""
-    @Published var aboutMe: String = ""
-    
-    // MARK: - Profile Image
+@Observable
+public class ProfileModel {
+    public var statusText: String = "Select some photos"
     
     enum ImageState { // These enum states are referenced with .<state value>
         case empty
@@ -33,7 +20,7 @@ class ProfileModelArray: ObservableObject {
         case importFailed
     }
     
-    struct ProfileImageArray: Transferable {
+    struct ProfileImage: Transferable {
         let image: UIImage
         
         static var transferRepresentation: some TransferRepresentation {
@@ -49,7 +36,7 @@ class ProfileModelArray: ObservableObject {
                     throw TransferError.importFailed
                 }
                 
-                return ProfileImageArray(image: uiImage)
+                return ProfileImage(image: uiImage)
                 
             #else
                 throw TransferError.importFailed
@@ -57,24 +44,30 @@ class ProfileModelArray: ObservableObject {
             }
         }
     }
+    
     // Images that were successfully retrieved
-    @Published private(set) var loadedImages: [ImageWrapper] = [] {
+    private(set) var loadedImages: [ImageWrapper] = [] {
         didSet {
             print("loaded " + String(loadedImages.count) + " images (of " + String(numSelected) + ")")
             
             if loadedImages.count > 0 && loadedImages.count == numSelected {
+                
+                var statusUpdateClosure = { newStatus in
+                    self.statusText = newStatus
+                }
+                
                 print("Sending request:")
-                PhotoServerApi().uploadImages(images: loadedImages)
+                PhotoServerApi(statusUpdateHandler: statusUpdateClosure).uploadImages(images: loadedImages)
             }
         }
     }
     
     
-    @Published private(set) var imageStateArray: [ImageState] = []
+    private(set) var imageStateArray: [ImageState] = []
     
     var selectedIds: Set<String> = []
     
-    @Published var selectedItems: [PhotosPickerItem] = [] {
+    var selectedItems: [PhotosPickerItem] = [] {
         didSet {
             selectedIds = []  // TODO: see if there is a better implementation
             
@@ -104,7 +97,7 @@ class ProfileModelArray: ObservableObject {
     // MARK: - Private Methods
     
     private func loadTransferable(from imageSelection: PhotosPickerItem, index: Int) -> Progress { // Return type is "Progress"
-        return imageSelection.loadTransferable(type: ProfileImageArray.self) { result in
+        return imageSelection.loadTransferable(type: ProfileImage.self) { result in
             DispatchQueue.main.async {
 //                guard imageSelection == self.selectedItems[0] else {
 //                    print("Failed to get the selected item.")
