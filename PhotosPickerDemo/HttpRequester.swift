@@ -10,7 +10,6 @@ import Foundation
 import SwiftUI
 
 struct PhotoApiView: View {
-    
     @State var getRequestResponse: ResponseObj?
     
     var body: some View {
