@@ -26,10 +26,10 @@
 		7641E24F2DED08B9001A1E49 /* SquareImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareImageView.swift; sourceTree = "<group>"; };
 		76F33D392DED094F00696AFA /* PhotoPickerLaunchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerLaunchButton.swift; sourceTree = "<group>"; };
 		9461C499DE4C57F3DE71DB16 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		D20E9D7A281F43B500957AC3 /* PhotosPickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotosPickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D20E9D7A281F43B500957AC3 /* PhotoBackupApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBackupApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D20E9D7D281F43B500957AC3 /* PhotosPickerExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPickerExampleApp.swift; sourceTree = "<group>"; };
 		D20E9D81281F43B600957AC3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D20E9D83281F43B600957AC3 /* PhotosPickerDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotosPickerDemo.entitlements; sourceTree = "<group>"; };
+		D20E9D83281F43B600957AC3 /* PhotoBackupApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PhotoBackupApp.entitlements; sourceTree = "<group>"; };
 		E964DB7DCC0E3B0B56B5DD56 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		F094D7622885AE43007F2E34 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,7 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				F094D7622885AE43007F2E34 /* README.md */,
-				D20E9D7C281F43B500957AC3 /* PhotosPickerDemo */,
+				D20E9D7C281F43B500957AC3 /* PhotoBackupApp */,
 				D20E9D7B281F43B500957AC3 /* Products */,
 				688DE6C2E3CBDAFAB2A6A552 /* Configuration */,
 				BE8220640885AB3C76734044 /* LICENSE */,
@@ -75,12 +75,12 @@
 		D20E9D7B281F43B500957AC3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D20E9D7A281F43B500957AC3 /* PhotosPickerDemo.app */,
+				D20E9D7A281F43B500957AC3 /* PhotoBackupApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D20E9D7C281F43B500957AC3 /* PhotosPickerDemo */ = {
+		D20E9D7C281F43B500957AC3 /* PhotoBackupApp */ = {
 			isa = PBXGroup;
 			children = (
 				7641E24D2DED08B9001A1E49 /* PhotoSelectorView.swift */,
@@ -92,14 +92,14 @@
 				D20E9D7D281F43B500957AC3 /* PhotosPickerExampleApp.swift */,
 				D2306126281FCF1D00EBAE1F /* Supporting Files */,
 			);
-			path = PhotosPickerDemo;
+			path = PhotoBackupApp;
 			sourceTree = "<group>";
 		};
 		D2306126281FCF1D00EBAE1F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				D20E9D81281F43B600957AC3 /* Assets.xcassets */,
-				D20E9D83281F43B600957AC3 /* PhotosPickerDemo.entitlements */,
+				D20E9D83281F43B600957AC3 /* PhotoBackupApp.entitlements */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -107,9 +107,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D20E9D79281F43B500957AC3 /* PhotosPickerDemo */ = {
+		D20E9D79281F43B500957AC3 /* PhotoBackupApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D20E9D89281F43B600957AC3 /* Build configuration list for PBXNativeTarget "PhotosPickerDemo" */;
+			buildConfigurationList = D20E9D89281F43B600957AC3 /* Build configuration list for PBXNativeTarget "PhotoBackupApp" */;
 			buildPhases = (
 				D20E9D76281F43B500957AC3 /* Sources */,
 				D20E9D77281F43B500957AC3 /* Frameworks */,
@@ -119,9 +119,9 @@
 			);
 			dependencies = (
 			);
-			name = PhotosPickerDemo;
+			name = PhotoBackupApp;
 			productName = PhotosPickerDemo;
-			productReference = D20E9D7A281F43B500957AC3 /* PhotosPickerDemo.app */;
+			productReference = D20E9D7A281F43B500957AC3 /* PhotoBackupApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -153,7 +153,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D20E9D79281F43B500957AC3 /* PhotosPickerDemo */,
+				D20E9D79281F43B500957AC3 /* PhotoBackupApp */,
 			);
 		};
 /* End PBXProject section */
@@ -306,7 +306,7 @@
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "PhotosPickerDemo/Supporting Files/PhotosPickerDemo.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "PhotoBackupApp/Supporting Files/PhotoBackupApp.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -321,7 +321,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.PhotosPickerExample${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.PhotoBackup--SAMPLE-CODE-DISAMBIGUATOR-";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=watch*]" = com.appledemo.PhotosPickerExample.Watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -342,7 +342,7 @@
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "PhotosPickerDemo/Supporting Files/PhotosPickerDemo.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "PhotoBackupApp/Supporting Files/PhotoBackupApp.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -357,7 +357,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.PhotosPickerExample${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.PhotoBackup--SAMPLE-CODE-DISAMBIGUATOR-";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=watch*]" = com.appledemo.PhotosPickerExample.Watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -383,7 +383,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D20E9D89281F43B600957AC3 /* Build configuration list for PBXNativeTarget "PhotosPickerDemo" */ = {
+		D20E9D89281F43B600957AC3 /* Build configuration list for PBXNativeTarget "PhotoBackupApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D20E9D8A281F43B600957AC3 /* Debug */,
