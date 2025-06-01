@@ -8,7 +8,7 @@ The entry point into the app.
 import SwiftUI
 
 @main
-struct PhotosPickerDemoApp: App {
+struct PhotoBackupApp: App {
     var body: some Scene {
         let _ = print("=========== App has started ===========\n\n")
         WindowGroup {
