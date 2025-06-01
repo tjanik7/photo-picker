@@ -30,8 +30,6 @@ xcuserdata/
 *.xcworkspace
 xcuserdata
 
-*.pbxproj
-
 # Build products
 build/
 *.o
