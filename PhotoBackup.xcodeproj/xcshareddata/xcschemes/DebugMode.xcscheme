@@ -18,7 +18,7 @@
                BlueprintIdentifier = "D20E9D79281F43B500957AC3"
                BuildableName = "PhotosPickerDemo.app"
                BlueprintName = "PhotosPickerDemo"
-               ReferencedContainer = "container:PhotosPickerDemo.xcodeproj">
+               ReferencedContainer = "container:PhotoBackup.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "D20E9D79281F43B500957AC3"
             BuildableName = "PhotosPickerDemo.app"
             BlueprintName = "PhotosPickerDemo"
-            ReferencedContainer = "container:PhotosPickerDemo.xcodeproj">
+            ReferencedContainer = "container:PhotoBackup.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "D20E9D79281F43B500957AC3"
             BuildableName = "PhotosPickerDemo.app"
             BlueprintName = "PhotosPickerDemo"
-            ReferencedContainer = "container:PhotosPickerDemo.xcodeproj">
+            ReferencedContainer = "container:PhotoBackup.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -8,7 +8,7 @@ The main content view of the app.
 import SwiftUI
 import PhotosUI
 
-struct PhotoSelectorView: View { // TODO: refactor code so that names actually make sense - update status of HTTP requests in some sort of text area
+struct PhotoSelectorView: View {
     
     @State var profileModel = ProfileModel()
     @State var photoApiView = PhotoApiView()
