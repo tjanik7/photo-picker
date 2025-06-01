@@ -12,7 +12,7 @@ struct PhotosPickerDemoApp: App {
     var body: some Scene {
         let _ = print("=========== App has started ===========\n\n")
         WindowGroup {
-            PhotoSelector()
+            PhotoSelectorView()
         }
     }
 }

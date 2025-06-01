@@ -8,7 +8,7 @@ The main content view of the app.
 import SwiftUI
 import PhotosUI
 
-struct PhotoSelector: View { // TODO: refactor code so that names actually make sense - update status of HTTP requests in some sort of text area
+struct PhotoSelectorView: View { // TODO: refactor code so that names actually make sense - update status of HTTP requests in some sort of text area
     
     @State var profileModel = ProfileModel()
     @State var photoApiView = PhotoApiView()
@@ -28,7 +28,7 @@ struct PhotoSelector: View { // TODO: refactor code so that names actually make 
             }
             Section { // Display each of the selected images
                 ForEach(profileModel.loadedImages) { img in
-                    SquareImage(imgWrapper: img)
+                    SquareImageView(imgWrapper: img)
                 }
             }
             .listRowBackground(Color.clear)
