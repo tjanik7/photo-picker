@@ -51,8 +51,9 @@ public class DataModel {
     }
     
     // Images that were successfully retrieved
-    private(set) var loadedImages: [ImageWrapper] = [] {
-        didSet {
+    private(set) var loadedImages: [IdentifiableImage] = [] {
+        didSet { // Main body of this runs when all selected images have finished loading
+            
             print("loaded " + String(loadedImages.count) + " images (of " + String(numSelected) + ")")
             
             if loadedImages.count > 0 && loadedImages.count == numSelected {
@@ -68,7 +69,8 @@ public class DataModel {
     var selectedIds: Set<String> = []
     
     var selectedItems: [PhotosPickerItem] = [] {
-        didSet {
+        didSet { // Runs when user hits "Done" in photo picker
+            
             selectedIds = []  // TODO: see if there is a better implementation
             
             if selectedItems.count > 0 {
@@ -99,16 +101,18 @@ public class DataModel {
     // MARK: - Private Methods
     
     private func loadTransferable(from imageSelection: PhotosPickerItem, index: Int) -> Progress { // Return type is "Progress"
+        // Method is called (for each item) when selectedItems changes
         return imageSelection.loadTransferable(type: TransferableImage.self) { result in
             DispatchQueue.main.async {
                 
-                switch result { // Note that I don't think this is a value defined anywhere in this code; this is simply the result of the loaded image
+                switch result { // Type is Result<TransferableImage>
+                    
                 case .success(let transferableImage?): // Here is where the selected image is set if state is successful
                     self.imageStateArray[index] = .success(transferableImage.image)
                     
-                    let imgWrap = ImageWrapper(img: transferableImage.image)
-                    
-                    self.loadedImages.append(imgWrap)
+                    // Need to use wrapper to make Image identifiable as required by "for each" loop in PhotoSelectorView
+                    let wrappedImage = IdentifiableImage(img: transferableImage.image)
+                    self.loadedImages.append(wrappedImage)
                     
                 case .success(nil):
                     self.imageStateArray[index] = .empty

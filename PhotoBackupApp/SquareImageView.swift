@@ -10,10 +10,10 @@ import SwiftUI
 import PhotosUI
 
 struct SquareImageView: View {
-    let imgWrapper: ImageWrapper
+    let wrappedImage: IdentifiableImage
     
     var body: some View {
-        let image = Image(uiImage: imgWrapper.img!)
+        let image = Image(uiImage: wrappedImage.img!)
         image.resizable()
             .frame(width: 100, height: 100)
     }

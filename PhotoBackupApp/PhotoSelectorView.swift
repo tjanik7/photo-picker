@@ -24,7 +24,7 @@ struct PhotoSelectorView: View {
             }
             Section { // Display each of the selected images
                 ForEach(dataModel.loadedImages) { img in
-                    SquareImageView(imgWrapper: img)
+                    SquareImageView(wrappedImage: img)
                 }
             }
             .listRowBackground(Color.clear)

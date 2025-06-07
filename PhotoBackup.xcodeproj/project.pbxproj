@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		76359FF62DBEC6CD00D4ADC0 /* ImageWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76359FF52DBEC6C800D4ADC0 /* ImageWrapper.swift */; };
+		76359FF62DBEC6CD00D4ADC0 /* IdentifiableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76359FF52DBEC6C800D4ADC0 /* IdentifiableImage.swift */; };
 		76359FF82DBECF2A00D4ADC0 /* HttpRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76359FF72DBECF0600D4ADC0 /* HttpRequester.swift */; };
 		7641E2502DED08B9001A1E49 /* SquareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641E24F2DED08B9001A1E49 /* SquareImageView.swift */; };
 		7641E2512DED08B9001A1E49 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7641E24E2DED08B9001A1E49 /* DataModel.swift */; };
@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		76359FF52DBEC6C800D4ADC0 /* ImageWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWrapper.swift; sourceTree = "<group>"; };
+		76359FF52DBEC6C800D4ADC0 /* IdentifiableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableImage.swift; sourceTree = "<group>"; };
 		76359FF72DBECF0600D4ADC0 /* HttpRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequester.swift; sourceTree = "<group>"; };
 		7641E24D2DED08B9001A1E49 /* PhotoSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectorView.swift; sourceTree = "<group>"; };
 		7641E24E2DED08B9001A1E49 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 				7641E24F2DED08B9001A1E49 /* SquareImageView.swift */,
 				76F33D392DED094F00696AFA /* PhotoPickerLaunchButton.swift */,
 				76359FF72DBECF0600D4ADC0 /* HttpRequester.swift */,
-				76359FF52DBEC6C800D4ADC0 /* ImageWrapper.swift */,
+				76359FF52DBEC6C800D4ADC0 /* IdentifiableImage.swift */,
 				D20E9D7D281F43B500957AC3 /* PhotosPickerExampleApp.swift */,
 				D2306126281FCF1D00EBAE1F /* Supporting Files */,
 			);
@@ -179,7 +179,7 @@
 				7641E2502DED08B9001A1E49 /* SquareImageView.swift in Sources */,
 				7641E2512DED08B9001A1E49 /* DataModel.swift in Sources */,
 				7641E2522DED08B9001A1E49 /* PhotoSelectorView.swift in Sources */,
-				76359FF62DBEC6CD00D4ADC0 /* ImageWrapper.swift in Sources */,
+				76359FF62DBEC6CD00D4ADC0 /* IdentifiableImage.swift in Sources */,
 				D20E9D7E281F43B500957AC3 /* PhotosPickerExampleApp.swift in Sources */,
 				76359FF82DBECF2A00D4ADC0 /* HttpRequester.swift in Sources */,
 			);

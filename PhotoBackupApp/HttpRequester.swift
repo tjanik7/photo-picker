@@ -21,7 +21,7 @@ struct PhotoServerApi {
 //    let serverUrl = URL(string: "http://172.20.10.3:8000/media/hi")!  // IP when using hotspot
     
     
-    func uploadImages(images: [ImageWrapper], statusUpdateHandler: @escaping (String) -> Void) {
+    func uploadImages(images: [IdentifiableImage], statusUpdateHandler: @escaping (String) -> Void) {
         
         // generate boundary string using a unique per-app string
         let boundary = UUID().uuidString

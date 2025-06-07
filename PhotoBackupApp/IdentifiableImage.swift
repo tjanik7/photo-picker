@@ -1,5 +1,5 @@
 //
-//  ImageWrapper.swift
+//  IdentifiableImage.swift
 //  PhotosPickerDemo
 //
 //  Created by Ty Janik on 4/27/25.
@@ -9,7 +9,7 @@
 import SwiftUICore
 import UIKit
 
-class ImageWrapper: Identifiable {
+class IdentifiableImage: Identifiable {
     var img: UIImage?
     
     init(img: UIImage? = nil) {
