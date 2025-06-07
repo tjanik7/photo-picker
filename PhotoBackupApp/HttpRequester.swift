@@ -17,8 +17,8 @@ struct ResponseObj: Codable {
 // TODO: request internet access before app runs to fix bug
 
 struct PhotoServerApi {
-    let serverUrl = URL(string: "http://192.168.1.173:8000/media/hi")!
-//    let serverUrl = URL(string: "http://172.20.10.3:8000/media/hi")!  // IP when using hotspot
+    let serverUrl = URL(string: "http://192.168.1.173:8000/media/backup")!
+//    let serverUrl = URL(string: "http://172.20.10.3:8000/media/backup")!  // IP when using hotspot
     
     
     func uploadImages(images: [IdentifiableImage], statusUpdateHandler: @escaping (String) -> Void) {
