@@ -11,13 +11,9 @@ import PhotosUI
 struct PhotoSelectorView: View {
     
     @State var profileModel = ProfileModel()
-    @State var photoApiView = PhotoApiView()
     
     var body: some View {
         Form {
-            Section {
-                photoApiView
-            }
             Section { // My new picker in select multiple mode
                 HStack {
                     Spacer()
