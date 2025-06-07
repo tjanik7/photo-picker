@@ -9,20 +9,6 @@
 import Foundation
 import SwiftUI
 
-struct PhotoApiView: View {
-    @State var getRequestResponse: ResponseObj?
-    
-    var body: some View {
-        VStack {
-            Text("Here is some text:")
-                .font(.title)
-                .fontWeight(.black)
-                .foregroundColor(Color.gray)
-                .padding(.bottom, 8)
-        }
-    }
-}
-
 
 struct ResponseObj: Codable {
     var testKey: String

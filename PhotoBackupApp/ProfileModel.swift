@@ -72,6 +72,8 @@ public class ProfileModel {
             selectedIds = []  // TODO: see if there is a better implementation
             
             if selectedItems.count > 0 {
+                statusText = "Loading selected photos"
+                
                 let _ = print("User selected " + String(selectedItems.count) + " items; setting numSelected var")
                 numSelected = selectedItems.count
                 
