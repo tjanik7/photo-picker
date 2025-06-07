@@ -11,7 +11,7 @@ import SwiftUI
 import PhotosUI
 
 struct PhotoPickerLaunchButton: View {
-    @Bindable var viewModel: ProfileModel
+    @Bindable var viewModel: DataModel
     
     var body: some View {
         PhotosPicker(selection: $viewModel.selectedItems,

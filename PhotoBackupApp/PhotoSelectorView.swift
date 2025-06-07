@@ -10,20 +10,20 @@ import PhotosUI
 
 struct PhotoSelectorView: View {
     
-    @State var profileModel = ProfileModel()
+    @State var dataModel = DataModel()
     
     var body: some View {
         Form {
             Section { // My new picker in select multiple mode
                 HStack {
                     Spacer()
-                    Text(profileModel.statusText)
-                    PhotoPickerLaunchButton(viewModel: profileModel)
+                    Text(dataModel.statusText)
+                    PhotoPickerLaunchButton(viewModel: dataModel)
                     Spacer()
                 }
             }
             Section { // Display each of the selected images
-                ForEach(profileModel.loadedImages) { img in
+                ForEach(dataModel.loadedImages) { img in
                     SquareImageView(imgWrapper: img)
                 }
             }

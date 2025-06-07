@@ -14,13 +14,14 @@ struct ResponseObj: Codable {
     var testKey: String
 }
 
+// TODO: request internet access before app runs to fix bug
+
 struct PhotoServerApi {
-//    let serverUrl = URL(string: "http://192.168.1.82:8000/media/hi")!
-    let serverUrl = URL(string: "http://172.20.10.3:8000/media/hi")!  // IP when using hotspot
-        
-    var statusUpdateHandler: (String) -> Void
+    let serverUrl = URL(string: "http://192.168.1.173:8000/media/hi")!
+//    let serverUrl = URL(string: "http://172.20.10.3:8000/media/hi")!  // IP when using hotspot
     
-    func uploadImages(images: [ImageWrapper]) {
+    
+    func uploadImages(images: [ImageWrapper], statusUpdateHandler: @escaping (String) -> Void) {
         
         // generate boundary string using a unique per-app string
         let boundary = UUID().uuidString

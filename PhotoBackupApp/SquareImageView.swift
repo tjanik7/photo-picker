@@ -6,14 +6,6 @@
 //  Copyright © 2025 Apple. All rights reserved.
 //
 
-
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-The profile image that reflects the selected item state.
-*/
-
 import SwiftUI
 import PhotosUI
 

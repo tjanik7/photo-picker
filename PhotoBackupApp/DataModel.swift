@@ -4,8 +4,11 @@ import CoreTransferable
 
 @MainActor
 @Observable
-public class ProfileModel {
+public class DataModel {
     public var statusText: String = "Select some photos"
+    
+    var photoServerApi: PhotoServerApi
+    var updateClosure: (String) -> Void
     
     enum ImageState { // These enum states are referenced with .<state value>
         case empty
@@ -16,27 +19,29 @@ public class ProfileModel {
     
     var numSelected = 0  // Number of images user selected in picker
     
+    init() {
+        photoServerApi = PhotoServerApi()
+        
+        updateClosure = { newStatus in
+            self.statusText = newStatus
+        }
+    }
+    
     enum TransferError: Error {
         case importFailed
     }
     
-    struct ProfileImage: Transferable {
+    struct TransferableImage: Transferable {
         let image: UIImage
         
         static var transferRepresentation: some TransferRepresentation {
             DataRepresentation(importedContentType: .image) { data in
-            #if canImport(AppKit)
-                guard let nsImage = NSImage(data: data) else {
-                    throw TransferError.importFailed
-                }
-                let image = Image(nsImage: nsImage)
-                return ProfileImageArray(image: image)
-            #elseif canImport(UIKit)
+            #if canImport(UIKit)
                 guard let uiImage = UIImage(data: data) else {
                     throw TransferError.importFailed
                 }
                 
-                return ProfileImage(image: uiImage)
+                return TransferableImage(image: uiImage)
                 
             #else
                 throw TransferError.importFailed
@@ -51,13 +56,8 @@ public class ProfileModel {
             print("loaded " + String(loadedImages.count) + " images (of " + String(numSelected) + ")")
             
             if loadedImages.count > 0 && loadedImages.count == numSelected {
-                
-                var statusUpdateClosure = { newStatus in
-                    self.statusText = newStatus
-                }
-                
                 print("Sending request:")
-                PhotoServerApi(statusUpdateHandler: statusUpdateClosure).uploadImages(images: loadedImages)
+                photoServerApi.uploadImages(images: loadedImages, statusUpdateHandler: updateClosure)
             }
         }
     }
@@ -99,23 +99,23 @@ public class ProfileModel {
     // MARK: - Private Methods
     
     private func loadTransferable(from imageSelection: PhotosPickerItem, index: Int) -> Progress { // Return type is "Progress"
-        return imageSelection.loadTransferable(type: ProfileImage.self) { result in
+        return imageSelection.loadTransferable(type: TransferableImage.self) { result in
             DispatchQueue.main.async {
-//                guard imageSelection == self.selectedItems[0] else {
-//                    print("Failed to get the selected item.")
-//                    return
-//                }
+                
                 switch result { // Note that I don't think this is a value defined anywhere in this code; this is simply the result of the loaded image
-                case .success(let profileImageArray?): // Here is where the selected image is set if state is successful
-                    self.imageStateArray[index] = .success(profileImageArray.image)
+                case .success(let transferableImage?): // Here is where the selected image is set if state is successful
+                    self.imageStateArray[index] = .success(transferableImage.image)
                     
-                    let imgWrap = ImageWrapper(img: profileImageArray.image)
+                    let imgWrap = ImageWrapper(img: transferableImage.image)
                     
                     self.loadedImages.append(imgWrap)
+                    
                 case .success(nil):
                     self.imageStateArray[index] = .empty
+                    
                 case .failure(let error):
                     self.imageStateArray[index] = .failure(error)
+                    
                 }
             }
         }
