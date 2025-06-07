@@ -32,15 +32,17 @@ public class DataModel {
     }
     
     struct TransferableImage: Transferable {
+
         let image: UIImage
         
         static var transferRepresentation: some TransferRepresentation {
             DataRepresentation(importedContentType: .image) { data in
+                
             #if canImport(UIKit)
                 guard let uiImage = UIImage(data: data) else {
                     throw TransferError.importFailed
                 }
-                
+                                
                 return TransferableImage(image: uiImage)
                 
             #else
